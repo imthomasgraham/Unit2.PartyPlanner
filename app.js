@@ -6,10 +6,10 @@ document.addEventListener("DOMContentLoaded", function () {
   function createListItem(party) {
     const li = document.createElement("li");
     li.innerHTML = `
-              <strong>${party.name}</strong> (${party.date}, ${party.time}) - ${party.location}<br>
-              ${party.description}
-              <button class="delete-btn">Delete</button>
-          `;
+                <strong>${party.name}</strong> (${party.date}, ${party.time}) - ${party.location}<br>
+                ${party.description}
+                <button class="delete-btn">Delete</button>
+            `;
     return li;
   }
 
@@ -66,3 +66,24 @@ document.addEventListener("DOMContentLoaded", function () {
     partyForm.reset();
   });
 });
+
+// Using async function to fetch API
+
+async function fetchEventData() {
+  const apiUrl =
+    "https://fsa-crud-2aa9294fe819.herokuapp.com/api/2404-FTB-ET-WEB-FT/events";
+
+  try {
+    const response = await fetch(apiUrl);
+    if (!response.ok) {
+      throw new Error("Failed to fetch data");
+    }
+
+    const eventData = await response.json();
+    console.log(eventData);
+  } catch (error) {
+    console.error("Error fetching data:", error.message);
+  }
+}
+
+fetchEventData();
